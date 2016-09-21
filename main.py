@@ -6,9 +6,9 @@ import google_search
 
 print('=======================================')
 
-r = praw.Reddit(user_agent = "googleMeThis by /u/deadStarman")
-r.login('Plz_google_this','9518352', disable_warning=True)
-trigger_text = ["GoogleMeThis!","googlemethis!"]
+r = praw.Reddit(user_agent="googleMeThis by /u/deadStarman")
+r.login('Plz_google_this', '9518352', disable_warning=True)
+trigger_text = ["GoogleMeThis!", "googlemethis!"]
 new_comment = []
 
 with open('googleme_cache.txt', 'r', newline='\n') as f:
@@ -18,13 +18,13 @@ with open('googleme_cache.txt', 'r', newline='\n') as f:
 
 def run_bot():
     subreddit = r.get_subreddit("test")
-    comments = subreddit.get_comments(limit = 100)
-    print("grabbing comment .....");
+    comments = subreddit.get_comments(limit=100)
+    print("grabbing comment .....")
 
     for comment in comments:
         comment_clean = comment.body.lower()
         isMatch = any(string in comment_clean for string in trigger_text)
-        if isMatch and comment.id  not in cache:
+        if isMatch and comment.id not in cache:
             phrase = comment_clean.split('googlemethis!')
             print("Match found!")
             results = google_search.basic_usage(phrase[1])
@@ -39,7 +39,7 @@ while True:
     if len(new_comment) > 0:
         with open('googleme_cache.txt', 'a', newline='\n') as fp:
             for comment_id in new_comment:
-                a = fp.writelines(comment_id+'\n');
+                a = fp.writelines(comment_id + '\n')
 
         new_comment = []
     time.sleep(2.5)

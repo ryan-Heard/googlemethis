@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from GoogleScraper import scrape_with_config, GoogleSearchError
 
+
 def basic_usage(q):
     config = {
         'use_own_ip': True,
@@ -14,7 +15,7 @@ def basic_usage(q):
     }
 
     try:
-        search =  scrape_with_config(config)
+        search = scrape_with_config(config)
     except GoogleSearchError as e:
         print("errors")
 
@@ -38,11 +39,11 @@ def prioritize_response(links):
 
     for link in links:
         if "wikipedia" in link.link:
-            base = "Wikipedia says: " + link.snippet+ '\n\n'
+            base = "Wikipedia says: " + link.snippet + '\n\n'
 
-    base += "These may be useful links: \n"
+    base += "These may be useful links: " + '\n'
 
     for link in links:
-        base +=  link.link + '\n'
+        base += link.link + '\n'
 
-    return base;
+    return base
