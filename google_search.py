@@ -46,4 +46,7 @@ def prioritize_response(links):
     for link in links:
         base += link.link + '\n'
 
+    base += '\n\n if you see an error or an improvement please contact my' +
+    ' Robo Father /u/DeadStarman'
+
     return base

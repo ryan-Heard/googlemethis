@@ -2,12 +2,22 @@ import csv
 import praw
 import time
 import google_search
+import argparse
 
 
 print('=======================================')
+parser = argparse.ArgumentParser(description='Use Reddit Bot')
+
+parser.add_argument('User', metavar='-u', type=str,
+                    help='Reddit User Name')
+
+parser.add_argument('Password', metavar='-p', type=str,
+                    help='Reddit User Password')
+
+args = parser.parse_args()
 
 r = praw.Reddit(user_agent="googleMeThis by /u/deadStarman")
-r.login('Plz_google_this', '9518352', disable_warning=True)
+r.login(args.User, args.Password, disable_warning=True)
 trigger_text = ["GoogleMeThis!", "googlemethis!"]
 new_comment = []
 
