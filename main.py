@@ -8,10 +8,10 @@ import argparse
 print('=======================================')
 parser = argparse.ArgumentParser(description='Use Reddit Bot')
 
-parser.add_argument('User', metavar='-u', type=str,
+parser.add_argument('User', type=str,
                     help='Reddit User Name')
 
-parser.add_argument('Password', metavar='-p', type=str,
+parser.add_argument('Password', type=str,
                     help='Reddit User Password')
 
 args = parser.parse_args()
