@@ -41,7 +41,7 @@ def prioritize_response(links):
         if "wikipedia" in link.link:
             base = "Wikipedia says: " + link.snippet + '\n\n'
 
-    base += "These may be useful links: " + '\n'
+    base += "\nThese may be useful links: " + '\n'
 
     for link in links:
         base += link.link + '\n'
