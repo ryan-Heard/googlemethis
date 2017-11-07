@@ -1,23 +1,43 @@
+import argparse
 import csv
+import google_search
+import logging
 import praw
 import time
-import google_search
-import argparse
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+handler = logging.FileHandler('error.log')
+handler.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+logger.addHandler(handler)
 
 print('=======================================')
 parser = argparse.ArgumentParser(description='Use Reddit Bot')
-
-parser.add_argument('User', type=str,
+parser.add_argument("-u", "--User", type=str,
                     help='Reddit User Name')
 
-parser.add_argument('Password', type=str,
+parser.add_argument("-p", "--Password", type=str,
                     help='Reddit User Password')
+
+parser.add_argument("-s", "--Secret", type=str,
+                    help='Reddit Application Secret')
+
+parser.add_argument("-cid", "--ClientID", type=str,
+                    help='Reddit Application ID')
 
 args = parser.parse_args()
 
-r = praw.Reddit(user_agent="googleMeThis by /u/deadStarman")
-r.login(args.User, args.Password, disable_warning=True)
+
+r = praw.Reddit(user_agent="googleMeThis by /u/deadStarman",
+                client_id=args.ClientID,
+                client_secret=args.Secret)
+try:
+    r.login(args.User, args.Password, disable_warning=True)
+except Exception as e:
+    logger.info(e)
+
 trigger_text = ["GoogleMeThis!", "googlemethis!"]
 new_comment = []
 
@@ -27,8 +47,8 @@ with open('googleme_cache.txt', 'r', newline='\n') as f:
 
 
 def run_bot():
-    subreddit = r.get_subreddit("test")
-    comments = subreddit.get_comments(limit=100)
+    subreddit = r.subreddit("test")
+    comments = subreddit.comments(limit=100)
     print("grabbing comment .....")
 
     for comment in comments:

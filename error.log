@@ -1,0 +1,4 @@
+2017-11-06 20:16:43,765 - __main__ - INFO - (INCORRECT_USERNAME_PASSWORD) `incorrect username or password` on field `passwd`
+2017-11-06 21:15:44,395 - __main__ - INFO - 'Reddit' object has no attribute 'login'
+2017-11-06 21:17:37,399 - __main__ - INFO - 'Reddit' object has no attribute 'login'
+2017-11-06 21:18:08,027 - __main__ - INFO - 'Reddit' object has no attribute 'login'

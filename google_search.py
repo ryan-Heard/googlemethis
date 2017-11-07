@@ -1,6 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from GoogleScraper import scrape_with_config, GoogleSearchError
+import logging
+
+formatter = "%(asctime) - %(name) - %(levelname) - %(message)"
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+handler = logging.FileHandler('error.log')
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+logger.setLevel(logging.INFO)
 
 
 def basic_usage(q):
@@ -16,8 +26,9 @@ def basic_usage(q):
 
     try:
         search = scrape_with_config(config)
+        logger.info("Search using {}".format(config))
     except GoogleSearchError as e:
-        print("errors")
+        logger.debug("Failed to get search Error: {}".format(e))
 
     return prioritize_response(search.serps[0].links)
 
@@ -47,6 +58,6 @@ def prioritize_response(links):
         base += link.link + '\n'
 
     base += '\n\n if you see an error or an improvement please contact my'
-    base +=' Robo Father /u/DeadStarman'
+    base += ' Robo Father /u/DeadStarman'
 
     return base
